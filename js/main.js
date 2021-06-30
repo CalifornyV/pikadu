@@ -2,13 +2,7 @@
 let menuToggle = document.querySelector('#menu-toggle');
 //создаем переменныую в которую положим меню
 let menu = document.querySelector('.sidebar')
-    //отслеживаем клик по кнопке меню и запускаем функцию
-menuToggle.addEventListener('click', function(event) {
-    //отменяем стандартное поведение ссылки
-    event.preventDefault();
-    //вешаем класс на меню
-    menu.classList.toggle('visible')
-})
+
 
 const regExpValidEmail = /^\w+@\w+\.\w{2,}$/;
 
@@ -25,9 +19,11 @@ const exitElem = document.querySelector('.exit');
 const editElem = document.querySelector('.edit');
 const editContainer = document.querySelector('.edit-container');
 
-const editUsername = document.querySelector('.edit-username')
-const editPhotoURL = document.querySelector('.edit-userphoto')
-const userAvatarElem = document.querySelector('.user-avatar')
+const editUsername = document.querySelector('.edit-username');
+const editPhotoURL = document.querySelector('.edit-userphoto');
+const userAvatarElem = document.querySelector('.user-avatar');
+
+const postWrapper = document.querySelector('.posts');
 
 
 const toggleAuthDom = () => {
@@ -110,40 +106,67 @@ const setUsers = {
     }
 };
 
-loginFrom.addEventListener('submit', event => {
-    event.preventDefault();
+const setPosts = {
+    allPost: [{
+        title: 'Заголовок поста'
+    }]
+};
 
-    const emailValue = emailInput.value;
-    const passwordValue = passwordInput.value;
+const showAllPosts = () => {
+    postWrapper.innerHTML = 'ТУТ МОГЛА БЫТЬ ВАША РЕКЛАМА'
+}
 
-    setUsers.logIn(emailValue, passwordValue, toggleAuthDom);
-    loginFrom.reset();
-});
+const init = () => {
+    loginFrom.addEventListener('submit', event => {
+        event.preventDefault();
 
-loginSignup.addEventListener('click', event => {
-    event.preventDefault();
+        const emailValue = emailInput.value;
+        const passwordValue = passwordInput.value;
 
-    const emailValue = emailInput.value;
-    const passwordValue = passwordInput.value;
+        setUsers.logIn(emailValue, passwordValue, toggleAuthDom);
+        loginFrom.reset();
+    });
 
-    setUsers.signUp(emailValue, passwordValue, toggleAuthDom);
-    loginFrom.reset();
-});
+    loginSignup.addEventListener('click', event => {
+        event.preventDefault();
 
-exitElem.addEventListener('click', event => {
-    event.preventDefault();
-    setUsers.logOut(toggleAuthDom);
-});
+        const emailValue = emailInput.value;
+        const passwordValue = passwordInput.value;
 
-editElem.addEventListener('click', event => {
-    event.preventDefault();
-    editContainer.classList.toggle('visible');
-});
+        setUsers.signUp(emailValue, passwordValue, toggleAuthDom);
+        loginFrom.reset();
+    });
 
-editContainer.addEventListener('click', event => {
-    event.preventDefault();
+    exitElem.addEventListener('click', event => {
+        event.preventDefault();
+        setUsers.logOut(toggleAuthDom);
+    });
 
-    setUsers.editUser(editUsername.value, editPhotoURL.value, toggleAuthDom);
-});
+    editElem.addEventListener('click', event => {
+        event.preventDefault();
+        editContainer.classList.toggle('visible');
+        editUsername.value = setUsers.user.displayName;
+    });
 
-toggleAuthDom();
+    editContainer.addEventListener('submit', event => {
+        event.preventDefault();
+        setUsers.editUser(editUsername.value, editPhotoURL.value, toggleAuthDom);
+        editContainer.classList.remove('visible');
+    });
+
+    //отслеживаем клик по кнопке меню и запускаем функцию
+    menuToggle.addEventListener('click', function(event) {
+        //отменяем стандартное поведение ссылки
+        event.preventDefault();
+        //вешаем класс на меню
+        menu.classList.toggle('visible')
+    });
+
+    showAllPosts();
+
+    toggleAuthDom();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+})

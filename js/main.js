@@ -141,13 +141,14 @@ const showAllPosts = () => {
 
     let postsHTML = '';
 
-    setPosts.allPosts.forEach(post => {
+    setPosts.allPosts.forEach(({ title, text, date }) => {
+
+
+
         postsHTML += ` <section class="post">
                 <div class="post-body">
-                    <h2 class="post-title">${post.title}</h2>
-                    <p class="post-text">
-                       ${post.text}
-                    </p>
+                    <h2 class="post-title">${title}</h2>
+                    <p class="post-text">${text}</p>
                     <p class="post-text">
                         Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Над моей оксмокс свою живет по всей, запятых маленький не? Рукописи своих силуэт они предложения дал предупредила маленькая осталось запятых букв эта курсивных, языком
                         агентство домах даль своего пор диких вдали гор текстов первую вершину деревни грустный. Свой жаренные текстов, вопрос имеет вопроса буквоград алфавит последний великий своего диких lorem скатился, однажды текстами единственное
@@ -201,9 +202,7 @@ const showAllPosts = () => {
                             <a href="" class="autor-username">
                     artemislamov
                 </a>
-                            <span class="post-time">
-                    5 минут назад
-                </span>
+                            <span class="post-time">${date}</span>
                         </div>
                         <!-- /.autor-about -->
                         <a href="#" class="autor-link"><img src="img/avatar.jpeg" alt="avatar" class="autor-avatar"></a>

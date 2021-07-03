@@ -111,61 +111,56 @@ const setPosts = {
             title: 'Заголовок поста',
             text: 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Над моей оксмокс свою живет по всей, запятых маленький не? Рукописи своих силуэт они предложения дал предупредила маленькая осталось запятых букв эта курсивных, языком агентство домах даль своего пор диких вдали гор текстов первую вершину деревни грустный.',
             tags: ['Свежее', 'Лучшее', 'Горячее', 'Подписки'],
-            author: '1@mail.ru',
+            author: {
+                displayName: 'rir',
+                photo: 'https: //i.ytimg.com/vi/qVF4NvPT9UA/maxresdefault.jpg'
+            },
             date: '11.11.2020, 20:54:00',
             like: 15,
-            comments: 10,
+            comments: 101,
         },
         {
             title: 'Заголовок поста2',
             text: 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Над моей оксмокс свою живет по всей, запятых маленький не? Рукописи своих силуэт они предложения дал предупредила маленькая осталось запятых букв эта курсивных, языком агентство домах даль своего пор диких вдали гор текстов первую вершину деревни грустный.',
             tags: ['Свежее', 'Лучшее', 'Горячее', 'Подписки'],
-            author: '2@mail.ru',
+            author: {
+                displayName: 'rick',
+                photo: 'https://i.ytimg.com/vi/YTopGBfzar0/maxresdefault.jpg'
+            },
             date: '19.11.2020, 20:54:00',
-            like: 15,
+            like: 415,
             comments: 10,
         },
         {
             title: 'Заголовок поста42',
             text: 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Над моей оксмокс свою живет по всей, запятых маленький не? Рукописи своих силуэт они предложения дал предупредила маленькая осталось запятых букв эта курсивных, языком агентство домах даль своего пор диких вдали гор текстов первую вершину деревни грустный.',
             tags: ['Свежее', 'Лучшее', 'Горячее', 'Подписки'],
-            author: '2@mail.ru',
+            author: {
+                displayName: 'rir',
+                photo: 'https://i.ytimg.com/vi/qVF4NvPT9UA/maxresdefault.jpg'
+            },
             date: '19.11.2020, 20:54:00',
             like: 15,
-            comments: 10,
+            comments: 12,
         }
     ]
 };
 
 const showAllPosts = () => {
 
-    let postsHTML = '';
+        let postsHTML = '';
 
-    setPosts.allPosts.forEach(({ title, text, date }) => {
+        setPosts.allPosts.forEach(({ title, text, date, tags, author, like, comments, photo, displayName }) => {
 
 
 
-        postsHTML += ` <section class="post">
+                    postsHTML += ` <section class="post">
                 <div class="post-body">
                     <h2 class="post-title">${title}</h2>
                     <p class="post-text">${text}</p>
-                    <p class="post-text">
-                        Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Над моей оксмокс свою живет по всей, запятых маленький не? Рукописи своих силуэт они предложения дал предупредила маленькая осталось запятых букв эта курсивных, языком
-                        агентство домах даль своего пор диких вдали гор текстов первую вершину деревни грустный. Свой жаренные текстов, вопрос имеет вопроса буквоград алфавит последний великий своего диких lorem скатился, однажды текстами единственное
-                        что парадигматическая ipsum! Повстречался осталось имеет проектах не власти, жаренные злых семантика всеми переписали, взобравшись назад правилами! Встретил свое пустился, ему взгляд прямо домах пояс оксмокс всемогущая по всей
-                        даже собрал то всеми раз все продолжил? Они продолжил подзаголовок текст буквенных оксмокс первую своего до свое по всей дороге силуэт гор что, строчка бросил приставка парадигматическая взобравшись, коварных несколько! Не, проектах,
-                        переписывается составитель языкового, осталось продолжил вдали текстов если что родного выйти по всей страну. Коварный на берегу сбить от всех вдали своего парадигматическая букв прямо реторический дал своих страна рукопись большого,
-                        бросил, которое заглавных живет, рекламных решила. Возвращайся составитель страна над переписали путь себя дал всемогущая жаренные своих инициал курсивных букв lorem диких дорогу заголовок сих на берегу решила точках бросил, взобравшись
-                        выйти текстами коварный. Запятой переписывается текстов она рекламных взобравшись. Lorem она пояс его гор лучше домах, рыбными составитель даль взгляд.
-                    </p>
+                    
 
-                    <div class="tags">
-                        <a href="#" class="tag">#свежее</a>
-                        <a href="#" class="tag">#новое</a>
-                        <a href="#" class="tag">#горячее</a>
-                        <a href="#" class="tag">#моё</a>
-                        <a href="#" class="tag">#случайность</a>
-                    </div>
+                    <div class="tags">${tags.map(tag => `<a href="#" class="tag">#${tag}</a>`)}</div>
                 </div>
                 <div class="post-footer">
                     <div class="post-buttons">
@@ -173,17 +168,13 @@ const showAllPosts = () => {
                 <svg width="19" height="20" class="icon icon-like">
                     <use xlink:href="img/icons.svg#like"></use>
                 </svg>
-                <span class="likes-counter">
-                    26
-                </span>
+                <span class="likes-counter">${like}</span>
             </button>
                         <button class="post-button comments">
                 <svg width="21" height="21" class="icon icon-comments">
                     <use xlink:href="img/icons.svg#comment"></use>
                 </svg>
-                <span class="comments-counter">
-                    157
-                </span>
+                <span class="comments-counter">${comments}</span>
             </button>
                         <button class="post-button save">
                 <svg width="19" height="19" class="icon icon-save">
@@ -199,13 +190,11 @@ const showAllPosts = () => {
                     <!-- /.post-buttons -->
                     <div class="post-autor">
                         <div class="autor-about">
-                            <a href="" class="autor-username">
-                    artemislamov
-                </a>
+                            <a href="" class="autor-username">${author.displayName}</a>
                             <span class="post-time">${date}</span>
                         </div>
                         <!-- /.autor-about -->
-                        <a href="#" class="autor-link"><img src="img/avatar.jpeg" alt="avatar" class="autor-avatar"></a>
+                        <a href="#" class="autor-link"><img src=${author.photo ||"/img/avatar.jpeg" } alt="avatar" class="autor-avatar"></a>
                         <!-- /.autor-link -->
                     </div>
                     <!-- /.post-autor -->

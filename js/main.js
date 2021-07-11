@@ -23,30 +23,21 @@ const editUsername = document.querySelector('.edit-username');
 const editPhotoURL = document.querySelector('.edit-userphoto');
 const userAvatarElem = document.querySelector('.user-avatar');
 
+const buttonNewPost = document.querySelector('.button-new-post');
+
 const postsWrapper = document.querySelector('.posts');
 
+const addPostElem = document.querySelector('.add-post')
 
-const toggleAuthDom = () => {
-    const user = setUsers.user;
-    console.log('user: ', user);
 
-    if (user) {
-        loginElem.style.display = 'none';
-        userElem.style.display = '';
-        userNameElem.textContent = user.displayName;
-        userAvatarElem.src = user.photo || userAvatarElem.src;
-    } else {
-        loginElem.style.display = '';
-        userElem.style.display = 'none';
-    }
 
-};
 
 const listUsers = [{
         id: '01',
         email: '1@mail.ru',
         password: '12345',
-        displayName: '123JS'
+        displayName: '123JS',
+        photo: 'https://i.ytimg.com/vi/YTopGBfzar0/maxresdefault.jpg'
     },
     {
         id: '02',
@@ -113,7 +104,7 @@ const setPosts = {
             tags: ['Свежее', 'Лучшее', 'Горячее', 'Подписки'],
             author: {
                 displayName: 'rir',
-                photo: 'https: //i.ytimg.com/vi/qVF4NvPT9UA/maxresdefault.jpg'
+                photo: 'https://i.ytimg.com/vi/qVF4NvPT9UA/maxresdefault.jpg'
             },
             date: '11.11.2020, 20:54:00',
             like: 15,
@@ -145,6 +136,33 @@ const setPosts = {
         }
     ]
 };
+const toggleAuthDom = () => {
+    const user = setUsers.user;
+    console.log('user: ', user);
+
+    if (user) {
+        loginElem.style.display = 'none';
+        userElem.style.display = '';
+        userNameElem.textContent = user.displayName;
+        userAvatarElem.src = user.photo || userAvatarElem.src;
+        buttonNewPost.classList.add('visible');
+    } else {
+        loginElem.style.display = '';
+        userElem.style.display = 'none';
+        buttonNewPost.classList.remove('visible');
+        addPostElem.classList.remove('visible');
+        postsWrapper.classList.add('visible');
+        //
+        addPostElem.classList.add('visible');
+        postsWrapper.classList.remove('visible');
+
+    }
+
+};
+const showAddPost = () => {
+    addPostElem.classList.add('visible');
+    postsWrapper.classList.remove('visible');
+}
 
 const showAllPosts = () => {
 
@@ -205,6 +223,8 @@ const showAllPosts = () => {
     postsWrapper.innerHTML = postsHTML
 };
 
+
+
 const init = () => {
     loginFrom.addEventListener('submit', event => {
         event.preventDefault();
@@ -248,7 +268,18 @@ const init = () => {
         //отменяем стандартное поведение ссылки
         event.preventDefault();
         //вешаем класс на меню
-        menu.classList.toggle('visible')
+        menu.classList.toggle('visible'); })
+
+        buttonNewPost.addEventListener('click', event => {event.preventDefault();
+            showAddPost();
+    });
+
+    addPostElem.addEventListener('submit', event => {
+        event.preventDefault();
+        const {title, text, tags} = addPostElem.elements;
+        const formElements = addPostElem.elements;
+        console.log(title, text, tags);
+       
     });
 
     showAllPosts();

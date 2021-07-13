@@ -54,14 +54,23 @@ const setUsers = {
         const user = this.getUser(email);
         if (user && user.password === password) {
             this.authorizedUser(user);
-            handler();
+            if (handler) {
+                handler();
+            }
+
         } else {
             alert('Пользователь с такими данными не найден')
         }
     },
     logOut(handler) {
         this.user = null;
-        handler();
+        if (handler) {
+            if (handler) {
+                handler();
+            }
+
+        }
+
     },
     signUp(email, password, handler) {
         if (!regExpValidEmail.test(email)) return alert('email not valid')
@@ -73,7 +82,10 @@ const setUsers = {
             const user = { email, password, displayName: email.split('@')[0] };
             listUsers.push(user)
             this.authorizedUser(user)
-            handler();
+            if (handler) {
+                handler();
+            }
+
         } else {
             alert('Пользователь с таким email уже зарегистрирован')
         }
@@ -85,7 +97,10 @@ const setUsers = {
         if (userPhoto) {
             this.user.photo = userPhoto;
         }
-        handler();
+        if (handler) {
+            handler();
+        }
+
     },
     getUser(email) {
         return listUsers.find((item) => {
@@ -134,7 +149,25 @@ const setPosts = {
             like: 15,
             comments: 12,
         }
-    ]
+    ],
+    addPost(title, text, tags, handler) {
+
+        this.allPosts.unshift({
+            title,
+            text,
+            tags,
+            author,
+            date,
+            like,
+            comments,
+
+        })
+
+        if (handler) {
+            handler();
+        }
+
+    }
 };
 const toggleAuthDom = () => {
     const user = setUsers.user;
@@ -277,9 +310,18 @@ const init = () => {
     addPostElem.addEventListener('submit', event => {
         event.preventDefault();
         const {title, text, tags} = addPostElem.elements;
-        const formElements = addPostElem.elements;
-        console.log(title, text, tags);
        
+        if (title.value.length <  6 ) {
+            alert('Слишком короткий заголовок');
+            return;
+        }
+        if (text.value.length <  60 ) {
+            alert('Слишком короткий text');
+            return;
+        }
+       setPosts.addPost(title.value, text.value, tags.value, showAllPosts);
+
+       addPostElem.classList.remove('visible')
     });
 
     showAllPosts();
@@ -287,6 +329,4 @@ const init = () => {
     toggleAuthDom();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    init();
-})
+document.addEventListener('DOMContentLoaded', init)

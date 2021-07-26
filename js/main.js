@@ -48,7 +48,7 @@
  const addPostElem = document.querySelector('.add-post')
 
 
-
+ const DEFAULT_PHOTO = userAvatarElem.src;
 
 
 
@@ -175,7 +175,24 @@
      // authorizedUser(user) {
      //     this.user = user;
      // }
+     sendForget(email) {
+         firebase.auth().sendPasswordResetEmail(email)
+             .then(() => {
+                 alert('Письмо отправлено')
+             })
+             .catch(err => {
+                 console.log(err);
+             })
+     }
  };
+ const loginForget = document.querySelector('.login-forget');
+
+ loginForget.addEventListener('click', event => {
+     event.preventDefault();
+     setUsers.sendForget(emailInput.value);
+     emailInput.value = '';
+
+ })
 
  const setPosts = {
      allPosts: [],
@@ -215,7 +232,7 @@
          loginElem.style.display = 'none';
          userElem.style.display = '';
          userNameElem.textContent = user.displayName;
-         userAvatarElem.src = user.photoURL || userAvatarElem.src;
+         userAvatarElem.src = user.photoURL || DEFAULT_PHOTO;
          buttonNewPost.classList.add('visible');
      } else {
          loginElem.style.display = '';
